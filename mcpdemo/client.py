@@ -29,10 +29,13 @@ async def main():
     model = ChatGroq(model="llama-3.3-70b-versatile")
     agent = create_react_agent(model,tools)
     math_response = await agent.ainvoke({
-        "messages":[{"role":"user","content":"What is (3+5) * 12?"}]
+        "messages":[{"role":"user","content":"What is (3+5) ?"}]
     })
     print("Math response:",math_response['messages'][-1].content)
-
+    weather_response = await agent.ainvoke({
+            "messages":[{"role":"user","content":"What is weather in india?"}]
+    })
+    print("weather response:",weather_response['messages'][-1].content)
 
 
 asyncio.run(main())
