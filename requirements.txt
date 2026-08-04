@@ -8,3 +8,6 @@ google
 pydantic
 langsmith
 langchain_tavily
+fastmcp
+langchain-mcp-adapters
+mcp
