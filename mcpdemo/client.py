@@ -1,5 +1,5 @@
 from langchain_mcp_adapters.client import MultiServerMCPClient
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 from langchain_groq import ChatGroq
 
 
@@ -26,10 +26,11 @@ async def main():
         }
     )
     tools = await client.get_tools()
-    model = ChatGroq(model="llama-3.3-70b-versatile")
-    agent = create_react_agent(model,tools)
+    print([tool.name for tool in tools])
+    model = ChatGroq(model="llama-3.1-8b-instant",temperature=0)
+    agent = create_agent(model = model,tools = tools)
     math_response = await agent.ainvoke({
-        "messages":[{"role":"user","content":"What is (3+5) ?"}]
+        "messages":[{"role":"user","content":"What is (3+5)x8 ?"}]
     })
     print("Math response:",math_response['messages'][-1].content)
     weather_response = await agent.ainvoke({
